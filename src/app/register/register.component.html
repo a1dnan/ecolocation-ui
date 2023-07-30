@@ -1,0 +1,124 @@
+<div class="container mt-5 mb-4">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 10px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Créer mon compte</p>
+
+                <form [formGroup]="registerForm" class="mx-1 mx-md-4 " (ngSubmit)="register()">
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <span class="ms-5 span-custom">Tu es : </span>
+                    <div class="form-outline flex-fill ms-3">
+                      <div class="form-check form-check-inline">
+                        <input formControlName="sexe" class="form-check-input" type="radio" name="sexe" value="F">
+                        <label class="form-check-label">Mme.</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input formControlName="sexe" class="form-check-input" type="radio" name="sexe" value="M">
+                        <label class="form-check-label">M.</label>
+                    </div>
+                      <small *ngIf="registerForm.controls['sexe'].errors && registerForm.controls['sexe'].touched" class="text-danger">
+                        {{authenticationService.getErrorMessage('Sexe', registerForm.controls['sexe'].errors)}}
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="text" formControlName="nom" class="form-control" placeholder="Nom" />   
+                      <small *ngIf="registerForm.controls['nom'].errors && registerForm.controls['nom'].touched" class="text-danger">
+                        {{authenticationService.getErrorMessage('Nom', registerForm.controls['nom'].errors)}}
+                      </small>                         
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="text" formControlName="prenom" class="form-control" placeholder="Prénom" />                            
+                      <small *ngIf="registerForm.controls['prenom'].errors && registerForm.controls['prenom'].touched" class="text-danger">
+                        {{authenticationService.getErrorMessage('Prénom', registerForm.controls['prenom'].errors)}}
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="email" formControlName="email" class="form-control" placeholder="Email" />                            
+                      <small *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].touched" class="text-danger">
+                        {{authenticationService.getErrorMessage('Email', registerForm.controls['email'].errors)}}
+                      </small>
+                    </div>
+                  </div>               
+                  
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="text" formControlName="phone" class="form-control" placeholder="Tele" /> 
+                      <small *ngIf="registerForm.controls['phone'].errors && registerForm.controls['phone'].touched" class="text-danger">
+                        {{authenticationService.getErrorMessage('Tele', registerForm.controls['phone'].errors)}}
+                      </small>                           
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-calendar fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="number" formControlName="age" class="form-control" placeholder="Age" /> 
+                      <small *ngIf="registerForm.controls['age'].errors && registerForm.controls['age'].touched" class="text-danger">
+                        {{authenticationService.getErrorMessage('Age', registerForm.controls['age'].errors)}}
+                      </small>                           
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">                            
+                      <input type="password" formControlName="password" class="form-control" placeholder="Mot de passe" />                            
+                      <small *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].touched" class="text-danger">
+                        {{authenticationService.getErrorMessage('Password', registerForm.controls['password'].errors)}}
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="password" formControlName="cpassword" class="form-control" placeholder="Confirmer le mot de passe" />                        
+                      <small *ngIf="registerForm.controls['cpassword'].errors && registerForm.controls['cpassword'].touched" class="text-danger">
+                        {{authenticationService.getErrorMessage('Confirmation Password', registerForm.controls['cpassword'].errors)}}
+                      </small>
+                      <small *ngIf="registerForm.errors?.['passwordMismatchError'] && registerForm.controls['cpassword'].touched" class="text-danger">
+                        La confirmation de mot de passe est incorrecte
+                      </small>
+                    </div>
+                  </div>
+
+                  
+
+
+                  <div class="d-flex justify-content-center mx-4 mt-3 mb-3 mb-lg-4">
+                    <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary btn-lg">S'inscrire</button>
+                  </div>
+
+                </form>
+                <p class="text-center">Tu as déjà un compte ? <a routerLink="/login">Se connecter</a></p>
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

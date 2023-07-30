@@ -1,0 +1,87 @@
+<div class="container mt-5">
+  <div class="main-body">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img *ngIf=" user.sexe == 'M' " src="../assets/avatars/male.jpg" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+              <img *ngIf=" user.sexe == 'F' " src="../assets/avatars/female.jpg" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+              <div class="mt-3">
+                <h4>{{ user.prenom }} {{ user.nom }}</h4>
+              </div>
+            </div>
+          
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="text-primary mb-4">
+              Informations personnel </h5>
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Nom</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input [disabled]="mode === 'locked'" type="text" class="form-control" [(ngModel)]="user.nom">
+              </div> 
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Prénom</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input [disabled]="mode === 'locked'" type="text" class="form-control" [(ngModel)]="user.prenom">
+              </div> 
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input [disabled]="mode === 'locked'" type="text" class="form-control" [(ngModel)]="user.email">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Tele</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input [disabled]="mode === 'locked'" type="text" class="form-control" [(ngModel)]="user.phone">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Age</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input [disabled]="mode === 'locked'" type="text" class="form-control" [(ngModel)]="user.age">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">À propos</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <div class="form-floating">
+                  <textarea [disabled]="mode === 'locked'" class="form-control" [(ngModel)]="user.apropos" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-9 text-secondary">
+                <button (click)="changeMode(mode)" type="button" class="btn btn-primary px-4">{{ buttonText }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

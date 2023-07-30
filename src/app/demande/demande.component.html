@@ -1,0 +1,117 @@
+<div class="container mt-5">
+    <div class="col-xl-9 ms-auto">
+        <div class="card">
+            <div class="card-body">
+                <form #annonceForm="ngForm" (ngSubmit)="saveAnnonce(annonceForm)">
+                    <div class="row gutters">
+                        <div class="col-xl-7">
+                            <h6 class="mb-2 text-primary">Adresse</h6>
+                        </div>
+
+                        <div class="col-xl-7">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Ville de location :</label>
+                                <input type="text" [(ngModel)]="annonce.ville" name="ville" class="form-control" placeholder="Ville">
+                            </div>
+                        </div>
+                        <div class="col-xl-7">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="eMail">Quatrier de location :</label>
+                                <input type="text" [(ngModel)]="annonce.quartier" name="quartier" class="form-control" placeholder="Quartier">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row gutters">
+                        <div class="col-xl-7">
+                            <h6 class="mb-2 text-primary">Détails de location:</h6>
+                        </div>
+                        <div class="col-xl-7">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="eMail">Type de chambre :</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" [(ngModel)]="annonce.type" value="Partagée" name="type" type="radio">
+                                    <label class="form-label">
+                                        Partagée
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" [(ngModel)]="annonce.type" value="Privée" name="type" type="radio" checked>
+                                    <label class="form-label">
+                                        Privée
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-7">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="website">Prix mensuel : <span>{{ value }}
+                                        DH</span></label>
+                                <div class="custom-slider ">
+                                    <ngx-slider [(value)]="value" [(ngModel)]="annonce.prix" name="prix" [options]="options"></ngx-slider>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-7">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="eMail">Durée de location :</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" [(ngModel)]="annonce.duree" value="Courte" type="radio" name="duree">
+                                    <label class="form-label">
+                                        Courte (1 à 5 mois)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" [(ngModel)]="annonce.duree" value="Moyenne" name="duree" type="radio" >
+                                    <label class="form-label">
+                                        Moyenne (6 à 11 mois)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" [(ngModel)]="annonce.duree" value="Longue" type="radio"  name="duree" >
+                                    <label class="form-label">
+                                        Longue (plus de 12 mois)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-7">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="eMail">Disponibilité:</label>
+                                <input type="date" class="form-control" [(ngModel)]="annonce.disponibilite" name="disponibilite">
+                            </div>
+                        </div>
+
+
+                        <div class="col-xl-7">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="eMail">Images :</label>
+                                <input type="file" class="form-control" #selectFile value="select" multiple (change)="onFileSelect($event)">
+                                <div class="row">
+                                    <div class="col-6 parent" *ngFor="let url of urls; index as i" >
+                                        <i class='bx bx-x bx-sm remove-image' (click)="removeImage(i)"></i>
+                                        <img [src]="url" class="img-thumbnail me-1"
+                                            style="width: 250px; height: 250;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row gutters">
+                        <div class="col-xl-7">
+                            <div class="text-right mt-3">
+                                <button type="submit" 
+                                    class="btn btn-primary btn-custom">Valider</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+               
+            </div>
+        </div>
+    </div>
+</div>

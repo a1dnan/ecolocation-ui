@@ -1,0 +1,141 @@
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-lg-12 card-margin">
+            <div class="card search-form">
+                <div class="card-body p-0">
+                    <form #searchForm="ngForm" (ngSubmit)="goToPage(searchForm.value.search)">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row no-gutters">
+                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                        <select class="form-control">
+                                            <option disabled selected>Chercher par</option>
+                                            <option>Ville</option>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-8 col-md-6 col-sm-12 p-0">
+                                        <input ngModel  type="text" placeholder="Chercher ..." class="form-control" id="search" name="search">
+                                    </div>
+                                    <div class="col-lg-1 col-md-3 col-sm-12">
+                                        <button type="submit" class="btn btn-base form-control">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <h5 class="card-title">Annonces <span class="text-muted fw-normal ms-2">({{ annonces.totalElements }})</span></h5>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                
+                <div *ngIf="jwtService.isLogged()">
+                    <a class="btn btn-primary" routerLink="/demande"><i class="bx bx-plus me-1"></i>Créer une annonce</a>
+                </div>
+                <div *ngIf="!jwtService.isLogged()" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a class="btn btn-primary"><i class="bx bx-plus me-1"></i>Créer une annonce</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 col-sm-6" *ngFor="let an of annonces.content">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dropdown float-end cursor-pointer fav" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <i class='bx bx-star bx-xs'></i>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <img *ngIf=" an.user.sexe == 'M' " src="../assets/avatars/male.jpg" alt="" class="avatar-md rounded-circle img-thumbnail" />
+                            <img *ngIf=" an.user.sexe == 'F' "src="../assets/avatars/female.jpg" alt="" class="avatar-md rounded-circle img-thumbnail" />
+                        </div>
+                        <div class="flex-1 ms-3">
+                            
+                            <h5 class="font-size-16 mb-1">
+                              <a href="#" class="text-dark">{{ an.user.nom }} {{ an.user.prenom }}</a>
+                            </h5>
+                            <span class="badge badge-soft-success mb-0">{{ an.user.age }} ans</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-1">
+                            <ul class="infos">
+                                <li class="list-inline-item">
+                                    <i class="bx bxs-map"></i>
+                                    <p>Ville</p>
+                                    <span>{{ an.ville}}</span>
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="bx bx-dollar"></i>
+                                    <p>Prix</p>
+                                    <span>{{ an.prix }} DH</span>
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="bx bx-time"></i>
+                                    <p>Durée</p>
+                                    <span>{{ an.duree }}</span>
+                                </li> 
+                            </ul>
+                    </div>
+                    <div class="d-flex pt-4 justify-content-center">
+                        <button type="button" routerLink="/details-annonce/{{an.annonceId}}" class="btn btn-primary btn-sm w-50">
+                            <i class="bx bx-user me-1"></i>
+                            Voir les détails
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-0 align-items-center pb-4">
+        <div class="col-sm-6">
+            <div><p class="mb-sm-0">{{ annonces.number+1 }} - {{ annonces.size }} sur {{ annonces.totalElements }}</p></div>
+        </div>
+        <div class="col-sm-6">
+            <div class="float-sm-end">
+                <ul class="pagination mb-sm-0">
+                    <li class="page-item cursor-pointer" [ngClass]="0 == currentPage ? ' disabled': ''">
+                        <a (click)="goToNextOrPreviousPage('backward', searchForm.value.search)" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item cursor-pointer" *ngFor="let pageNumber of [].constructor(annonces.totalPages); let i = index;"
+                        [ngClass]="i == currentPage ? ' active': ''">
+                        <span class="page-link"><a (click)="goToPage(searchForm.value.search,i)">{{ i+1 }}</a> </span>
+                    </li>
+                    <li class="page-item cursor-pointer" [ngClass]="annonces.totalPages - 1 == currentPage ? ' disabled': ''">
+                        <a (click)="goToNextOrPreviousPage('forward', searchForm.value.search)" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Il faut se connecter pour ajouter cette annonce à tes favoris !
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" data-bs-dismiss="modal" routerLink="/login" class="btn btn-outline-primary">Se connecter</button>
+          <button type="button" data-bs-dismiss="modal" routerLink="/register" class="btn btn-outline-danger">Créer un compte</button>
+        </div>
+      </div>
+    </div>
+  </div>

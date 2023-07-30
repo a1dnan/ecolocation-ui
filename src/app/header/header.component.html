@@ -1,0 +1,50 @@
+<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-white nv-custom">
+    <div class="container">
+      <a class="navbar-brand" href="#"><span class="text-danger" style="font-weight: bold ;">Co</span><span style="color:rgb(11, 11, 163) ; font-weight: bold ;" >location</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/main-page">Home
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/annonces">Annonces</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav" *ngIf="isLogged">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              <img *ngIf="user.sexe == 'M'" src="../assets/avatars/male.jpg" class="avatar-md rounded-circle img-thumbnail" />
+              <img *ngIf="user.sexe == 'F'" src="../assets/avatars/female.jpg" class="avatar-md rounded-circle img-thumbnail" />
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a class="dropdown-item mb-1" routerLink="/profil">
+                <i class='bx bx-user'></i> Mon Profil
+              </a>
+              <a class="dropdown-item mb-1" routerLink="/demandes">
+                <i class='bx bx-notepad'></i> Mes annonces</a>
+              <a class="dropdown-item mb-1" style="cursor: pointer;">
+                <i class='bx bx-star'></i> Mes favoris</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item mb-1" style="cursor: pointer;" (click)="logout()">
+                <i class='bx bx-log-out-circle'></i> Se déconnecter</a>
+            </div>
+          </li>
+        </ul>
+        <div class="d-flex" *ngIf="!isLogged">
+            <button class="btn btn-outline-danger my-2 my-sm-0 me-2 d-flex justify-content-center align-items-center " style="border: none;" routerLink="/login"><i class="fas fa-user me-1" style="font-size: small;"></i>Se connecter</button>
+            <button class="btn btn-dark my-2 my-sm-0" routerLink="/register">Créer un compte</button>                
+        </div>
+      </div>
+    </div>
+</nav>

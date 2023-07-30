@@ -1,0 +1,76 @@
+<div class="container mt-5 mb-4 d-flex justify-content-center">
+  <div class="col-lg-9 mt-4 mt-lg-0">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+          <h5 class="text-primary mb-4">Mes Annonces</h5>
+          <table class="table manage-candidates-top mb-0">
+            <thead>
+              <tr>
+                <th class="action text-center">Ville</th>
+                <th class="action text-center">Date de publication</th>
+                <th class="action text-center">Quartier</th>
+                <th class="action text-center">Prix</th>
+                <th class="action text-center">Durée</th>
+                <th class="action text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="candidates-list" *ngFor="let a of annonces.content">
+                <td class="candidate-list-favourite-time text-center">
+                  <span class="candidate-list-time order-1">{{a.ville}}</span>
+                </td>
+                <td class="candidate-list-favourite-time text-center">
+                  <span class="candidate-list-time order-1">{{a.datePub}}</span>
+                </td>
+                <td class="candidate-list-favourite-time text-center">
+                  <span class="candidate-list-time order-1">{{a.quartier}}</span>
+                </td>
+                <td class="candidate-list-favourite-time text-center">
+                  <span class="candidate-list-time order-1">{{a.prix}}</span>
+                </td>
+                <td class="candidate-list-favourite-time text-center">
+                  <span class="candidate-list-time order-1">{{a.duree}}</span>
+                </td>
+                <td>
+                  <ul class="list-unstyled d-flex justify-content-center">
+                    <li>
+                      <a class="text-primary me-2" routerLink="/details-annonce/{{a.annonceId}}">
+                        <i class="far fa-eye"></i>
+                      </a>
+                    </li>
+                    <li><a class="text-danger" style="cursor: pointer;" (click)="delete(a.annonceId)"><i
+                          class="far fa-trash-alt"></i></a></li>
+                  </ul>
+                </td>
+              </tr>
+
+
+            </tbody>
+          </table>
+          <div class="text-center mt-3 mt-sm-3">
+            <ul class="pagination justify-content-center mb-0">
+              <li class="page-item cursor-pointer" [ngClass]="0 == currentPage ? ' disabled': ''">
+                 <a (click)="goToNextOrPreviousPage('backward')" class="page-link">
+                  <i class="mdi mdi-chevron-left"></i>
+                 </a>
+              </li>
+
+              <li class="page-item cursor-pointer" *ngFor="let pageNumber of [].constructor(annonces.totalPages); let i = index;"
+                [ngClass]="i == currentPage ? ' active': ''">
+                <span class="page-link"><a (click)="goToPage(i)">{{ i+1 }}</a> </span>
+              </li>
+
+              <li class="page-item cursor-pointer" [ngClass]="annonces.totalPages - 1 == currentPage ? ' disabled': ''">
+                <a (click)="goToNextOrPreviousPage('forward')" class="page-link">
+                  <i class="mdi mdi-chevron-right"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

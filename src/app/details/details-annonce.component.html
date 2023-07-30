@@ -1,0 +1,175 @@
+<div class="blog-single gray-bg">
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col-lg-8 m-15px-tb">
+                <article class="article">
+                    <div class="article-img">
+                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                              <div class="carousel-item active" *ngFor="let img of annonce.images">
+                                <img [src]="img.url" class="d-block w-100" alt="...">
+                              </div>
+                            </div>
+                        
+                            <button *ngIf="annonce.images.length>1" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button *ngIf="annonce.images.length>1" class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                          </div>
+                    </div>
+
+
+
+
+
+                    <div class="widget-title mb-5 mt-4">
+                        <h3>Logement</h3>
+                    </div>
+                    <div class="widget-body">
+                        <div class="mt-3 pt-1 d-flex justify-content-center">
+                            <ul class="infos">
+                                <li class="list-inline-item">
+                                    <i class="bx bxs-map"></i>
+                                    <p>Ville</p>
+                                    <span>{{ annonce.ville }}</span>
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="bx bx-dollar"></i>
+                                    <p>Prix</p>
+                                    <span>{{ annonce.prix }} DH</span>
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="bx bx-time"></i>
+                                    <p>Durée</p>
+                                    <span>{{ annonce.duree }}</span>
+                                </li> 
+                                <li class="list-inline-item">
+                                    <i class='bx bx-home'></i>
+                                    <p>Type de chambre</p>
+                                    <span>{{ annonce.type }}</span>
+                                </li> 
+                                <li class="list-inline-item">
+                                    <i class='bx bx-buildings'></i>
+                                    <p>Quartier</p>
+                                    <span>{{ annonce.quartier }}</span>
+                                </li> 
+                                <li class="list-inline-item">
+                                    <i class='bx bx-calendar'></i>
+                                    <p>Disponibilité</p>
+                                    <span>{{ annonce.disponibilite }}</span>
+                                </li> 
+                            </ul>
+                    </div>
+                    </div>
+                    
+                </article>
+                <div class="alert alert-primary text-center" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" role="alert" *ngIf="!isConnected">
+                    <i class='bx bx-phone-call'></i> Contacter <span style="font-weight: 500;">{{ annonce.user.prenom }} {{ annonce.user.nom }}</span>
+                </div>
+
+                <div class="contact-form article-comment" *ngIf="isConnected">
+                    <h4>Contact</h4>
+                    <form id="contact-form" method="POST">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input name="Name" id="name" placeholder="Name *" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input name="Email" id="email" placeholder="Email *" class="form-control" type="email">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="message" id="message" placeholder="Your message *" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="send">
+                                    <button class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 m-15px-tb blog-aside">
+                <!-- Author -->
+                <div class="widget widget-author">
+                    <div class="widget-body">
+                        <div class="media align-items-center d-flex jusify-content-around">
+                            <div class="avatar">
+                                <img *ngIf=" annonce.user.sexe == 'M'" src="../assets/avatars/male.jpg">
+                                <img *ngIf=" annonce.user.sexe == 'F'" src="../assets/avatars/female.jpg">
+                            </div>
+                            <div class="media-body">
+                                <h6>{{ annonce.user.prenom }} {{ annonce.user.nom }}</h6>
+                                <span class="ms-4">{{ annonce.user.age }} ans</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Author -->
+
+                <!-- A propos -->
+                <div class="widget widget-post" *ngIf="annonce.user.apropos">
+                    <div class="widget-title">
+                        <h3>À propos </h3>
+                        
+                    </div>
+                    <div class="widget-body">
+                        <p>
+                            {{ annonce.user.apropos }}
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <!-- Modal -->
+  <div *ngIf="!jwtService.isLogged()" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Pour pouvoir contacter <span style="font-weight: 600; color: rgb(52, 52, 146);">{{ annonce.user.prenom }} {{ annonce.user.nom }}</span>, tu dois être connecté :
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" data-bs-dismiss="modal" routerLink="/login" class="btn btn-outline-primary">Se connecter</button>
+          <button type="button" data-bs-dismiss="modal" routerLink="/register" class="btn btn-outline-danger">Créer un compte</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="jwtService.isLogged()" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">{{ annonce.user.prenom }} {{ annonce.user.nom }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                Email : <span style="font-weight: 600; color: rgb(52, 52, 146);">{{ annonce.user.email }}</span>
+            </div>
+            <div>
+                N Tele : <span style="font-weight: 600; color: rgb(52, 52, 146);">{{ annonce.user.phone }}</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
